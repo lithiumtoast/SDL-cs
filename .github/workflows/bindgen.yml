@@ -7,7 +7,7 @@ on:
 jobs:
 
   bindgen-ffi-job:
-    name: "Bindgen AST"
+    name: "Bindgen FFI"
     runs-on: ${{ matrix.platform.os }}
     strategy:
       fail-fast: false
@@ -33,13 +33,13 @@ jobs:
 
       - name: "Read C code: extract FFI ${{ matrix.platform.rid }}"
         shell: bash
-        run: cd ./bindgen/SDL & ./extract.sh
+        run: cd ./bindgen & ./extract.sh
 
       - name: "Upload FFIs"
         uses: actions/upload-artifact@v3
         with:
           name: "ffi-${{ matrix.platform.rid }}"
-          path: "./bindgen/SDL/ffi"
+          path: "./bindgen/ffi"
 
   bindgen-cross-platform-ffi-job:
     name: "Bindgen FFI cross-platform"
@@ -52,23 +52,23 @@ jobs:
         with:
           submodules: 'false'
 
-      - name: "Download C code platform abstract syntax trees (win)"
+      - name: "Download C code platform FFI (win)"
         uses: actions/download-artifact@v3
         with:
           name: "ffi-win"
-          path: "./bindgen/SDL/ffi"
+          path: "./bindgen/ffi"
 
-      - name: "Download C code platform abstract syntax trees (osx)"
+      - name: "Download C code platform FFI (osx)"
         uses: actions/download-artifact@v3
         with:
           name: "ffi-osx"
-          path: "./bindgen/SDL/ffi"
+          path: "./bindgen/ffi"
 
-      - name: "Download C code platform abstract syntax trees (linux)"
+      - name: "Download C code platform FFI (linux)"
         uses: actions/download-artifact@v3
         with:
           name: "ffi-linux"
-          path: "./bindgen/SDL/ffi"
+          path: "./bindgen/ffi"
 
       - name: "Install c2ffi"
         shell: bash
@@ -76,13 +76,13 @@ jobs:
 
       - name: "Generate cross-platform FFI"
         shell: bash
-        run: cd ./bindgen/SDL && ./merge.sh
+        run: cd ./bindgen && ./merge.sh
 
       - name: "Upload cross-platform FFI"
         uses: actions/upload-artifact@v3
         with:
           name: "ffi-x"
-          path: "./bindgen/SDL/x-ffi/cross-platform.json"
+          path: "./bindgen/x-ffi/cross-platform.json"
 
   bindgen-cs-job:
     name: "Bindgen C#"
@@ -99,7 +99,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: "ffi-x"
-          path: "./bindgen/SDL/ffi-x"
+          path: "./bindgen/ffi-x"
 
       - name: "Install C2CS"
         shell: bash
@@ -107,7 +107,7 @@ jobs:
 
       - name: "Generate C# code"
         shell: bash
-        run: cd ./bindgen/SDL && ./generate.sh
+        run: cd ./bindgen && ./generate.sh
 
       - name: "Upload generated C# code"
         uses: actions/upload-artifact@v2
