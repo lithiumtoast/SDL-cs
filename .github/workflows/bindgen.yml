@@ -33,7 +33,7 @@ jobs:
 
       - name: "Read C code: extract FFI ${{ matrix.platform.rid }}"
         shell: bash
-        run: ls * && cd ./bindgen & ./extract.sh
+        run: ./bindgen/extract.sh
 
       - name: "Upload FFIs"
         uses: actions/upload-artifact@v3
