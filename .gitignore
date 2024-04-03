@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# JetBrains
+.idea/
+**/*.DotSettings.user
+
+# Generated files
+bin/
+obj/
+/artifacts/
+src/c/tests/**/ffi/*.json
+src/c/tests/**/ffi-x/*.json
