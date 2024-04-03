@@ -1,0 +1,115 @@
+name: "Bindgen"
+
+on:
+  workflow_call:
+
+jobs:
+
+  bindgen-ffi-job:
+    name: "Bindgen AST"
+    runs-on: ${{ matrix.platform.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - { name: Windows, os: windows-latest, rid: win }
+          - { name: macOS, os: macos-latest, rid: osx }
+          - { name: Linux, os: ubuntu-latest, rid: linux }
+
+    steps:
+      - name: "Clone Git repository"
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: "Install c2ffi"
+        shell: bash
+        run: dotnet tool install --global bottlenoselabs.c2ffi.tool
+
+      - name: "Read C code: Linux dependencies"
+        if: runner.os == 'Linux'
+        run: sudo apt-get install gcc-aarch64-linux-gnu
+
+      - name: "Read C code: extract FFI ${{ matrix.platform.rid }}"
+        shell: bash
+        run: cd ./bindgen/SDL & ./extract.sh
+
+      - name: "Upload FFIs"
+        uses: actions/upload-artifact@v3
+        with:
+          name: "ffi-${{ matrix.platform.rid }}"
+          path: "./bindgen/SDL/ffi"
+
+  bindgen-cross-platform-ffi-job:
+    name: "Bindgen FFI cross-platform"
+    needs: [bindgen-ffi-job]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Clone Git repository"
+        uses: actions/checkout@v3
+        with:
+          submodules: 'false'
+
+      - name: "Download C code platform abstract syntax trees (win)"
+        uses: actions/download-artifact@v3
+        with:
+          name: "ffi-win"
+          path: "./bindgen/SDL/ffi"
+
+      - name: "Download C code platform abstract syntax trees (osx)"
+        uses: actions/download-artifact@v3
+        with:
+          name: "ffi-osx"
+          path: "./bindgen/SDL/ffi"
+
+      - name: "Download C code platform abstract syntax trees (linux)"
+        uses: actions/download-artifact@v3
+        with:
+          name: "ffi-linux"
+          path: "./bindgen/SDL/ffi"
+
+      - name: "Install c2ffi"
+        shell: bash
+        run: dotnet tool install --global bottlenoselabs.c2ffi.tool
+
+      - name: "Generate cross-platform FFI"
+        shell: bash
+        run: cd ./bindgen/SDL && ./merge.sh
+
+      - name: "Upload cross-platform FFI"
+        uses: actions/upload-artifact@v3
+        with:
+          name: "ffi-x"
+          path: "./bindgen/SDL/x-ffi/cross-platform.json"
+
+  bindgen-cs-job:
+    name: "Bindgen C#"
+    needs: [bindgen-cross-platform-ffi-job]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Clone Git repository"
+        uses: actions/checkout@v3
+        with:
+          submodules: 'false'
+
+      - name: "Download C code cross-platform FFI"
+        uses: actions/download-artifact@v3
+        with:
+          name: "ffi-x"
+          path: "./bindgen/SDL/ffi-x"
+
+      - name: "Install C2CS"
+        shell: bash
+        run: dotnet tool install --global bottlenoselabs.c2cs.tool
+
+      - name: "Generate C# code"
+        shell: bash
+        run: cd ./bindgen/SDL && ./generate.sh
+
+      - name: "Upload generated C# code"
+        uses: actions/upload-artifact@v2
+        with:
+          name: "bindgen-cs"
+          path: "./src/cs/production/SDL/Generated"
