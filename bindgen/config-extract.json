@@ -1,13 +1,13 @@
 {
   "inputFilePath": "../src/c/production/SDL/include/SDL_bindgen.h",
   "userIncludeDirectories": [
-    "../../src/c/production/SDL/include",
-    "../../ext/SDL/include"
+    "../src/c/production/SDL/include",
+    "../ext/SDL/include"
   ],
   "ignoredIncludeFiles": [
-    "../../ext/SDL/include/SDL3/SDL_audio.h",
-    "../../ext/SDL/include/SDL3/SDL_iostream.h",
-    "../../ext/SDL/include/SDL3/SDL_oldnames.h"
+    "../ext/SDL/include/SDL3/SDL_audio.h",
+    "../ext/SDL/include/SDL3/SDL_iostream.h",
+    "../ext/SDL/include/SDL3/SDL_oldnames.h"
   ],
   "ignoredMacroObjects": [
     "x"
