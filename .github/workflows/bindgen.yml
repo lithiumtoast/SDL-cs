@@ -76,7 +76,7 @@ jobs:
 
       - name: "Generate cross-platform FFI"
         shell: bash
-        run: cd ./bindgen && ./merge.sh
+        run: ./bindgen/merge.sh
 
       - name: "Upload cross-platform FFI"
         uses: actions/upload-artifact@v3
