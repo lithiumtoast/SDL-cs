@@ -10,7 +10,8 @@
     "../ext/SDL/include/SDL3/SDL_iostream.h",
     "../ext/SDL/include/SDL3/SDL_oldnames.h",
     "../ext/SDL/include/SDL3/SDL_pen.h",
-    "../ext/SDL/include/SDL3/SDL_system.h"
+    "../ext/SDL/include/SDL3/SDL_system.h",
+    "../ext/SDL/include/SDL3/SDL_thread.h"
   ],
   "ignoredMacroObjects": [
     "SDL/include/SDL3/SDL_assert.h",
@@ -28,6 +29,8 @@
     "SDL_PI_F"
   ],
   "ignoredFunctions": [
+    "SDL/include/SDL3/SDL_assert.h",
+    "__debugbreak",
     "SDL/include/SDL3/SDL_stdinc.h",
     "SDL_qsort",
     "SDL_bsearch",
