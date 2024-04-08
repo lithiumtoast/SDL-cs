@@ -1,5 +1,15 @@
 #pragma once
 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+    #if __clang__
+        #define DECLSPEC __declspec(dllexport) __attribute__ ((visibility("default")))
+    #else
+        #define DECLSPEC __declspec(dllexport)
+    #endif
+#else
+    #define DECLSPEC extern __attribute__ ((visibility("default")))
+#endif
+
 #if defined(__APPLE__) && __has_include("AvailabilityMacros.h")
     #include <AvailabilityMacros.h>
     #if MAC_OS_X_VERSION_MIN_REQUIRED < 1060
