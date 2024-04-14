@@ -1,5 +1,5 @@
 {
-  "inputFilePath": "./x-ffi/cross-platform.json",
+  "inputFilePath": "./ffi-x/cross-platform.json",
   "outputFileDirectory": "./../src/cs/production/SDL/Generated",
   "namespaceName": "bottlenoselabs",
   "className": "SDL",

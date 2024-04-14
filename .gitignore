@@ -9,5 +9,5 @@
 bin/
 obj/
 /artifacts/
-src/c/tests/**/ffi/*.json
-src/c/tests/**/ffi-x/*.json
+bindgen/ffi/
+bindgen/ffi-x/

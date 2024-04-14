@@ -6,4 +6,4 @@ if ! [[ -x "$(command -v c2ffi)" ]]; then
   exit 1
 fi
 
-c2ffi merge --inputDirectoryPath "$DIRECTORY/ffi" --outputFilePath "$DIRECTORY/x-ffi/cross-platform.json"
+c2ffi merge --inputDirectoryPath "$DIRECTORY/ffi" --outputFilePath "$DIRECTORY/ffi-x/cross-platform.json"

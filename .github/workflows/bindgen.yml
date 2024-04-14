@@ -33,7 +33,7 @@ jobs:
 
       - name: "Read C code: extract FFI ${{ matrix.platform.rid }}"
         shell: bash
-        run: ./bindgen/extract.sh
+        run: ./bindgen/bindgen-extract.sh
 
       - name: "Upload FFIs"
         uses: actions/upload-artifact@v3
@@ -72,11 +72,11 @@ jobs:
 
       - name: "Install c2ffi"
         shell: bash
-        run: dotnet tool install --global bottlenoselabs.c2ffi.tool
+        run: dotnet add package bottlenoselabs.C2CS.Runtime --version 2024.4.14-rc --source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
       - name: "Generate cross-platform FFI"
         shell: bash
-        run: ./bindgen/merge.sh
+        run: ./bindgen/bindgen-merge.sh
 
       - name: "Upload cross-platform FFI"
         uses: actions/upload-artifact@v3
@@ -107,7 +107,7 @@ jobs:
 
       - name: "Generate C# code"
         shell: bash
-        run: cd ./bindgen && ./generate.sh
+        run: cd ./bindgen && ./bindgen-generate.sh
 
       - name: "Upload generated C# code"
         uses: actions/upload-artifact@v2
