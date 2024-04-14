@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: "Clone Git repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'true'
 
@@ -36,7 +36,7 @@ jobs:
         run: ./bindgen/bindgen-extract.sh
 
       - name: "Upload FFIs"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "ffi-${{ matrix.platform.rid }}"
           path: "./bindgen/ffi"
@@ -48,24 +48,24 @@ jobs:
 
     steps:
       - name: "Clone Git repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'false'
 
-      - name: "Download C code platform FFI (win)"
-        uses: actions/download-artifact@v3
+      - name: "Download FFI (win)"
+        uses: actions/download-artifact@v4
         with:
           name: "ffi-win"
           path: "./bindgen/ffi"
 
-      - name: "Download C code platform FFI (osx)"
-        uses: actions/download-artifact@v3
+      - name: "Download FFI (osx)"
+        uses: actions/download-artifact@v4
         with:
           name: "ffi-osx"
           path: "./bindgen/ffi"
 
-      - name: "Download C code platform FFI (linux)"
-        uses: actions/download-artifact@v3
+      - name: "Download FFI (linux)"
+        uses: actions/download-artifact@v4
         with:
           name: "ffi-linux"
           path: "./bindgen/ffi"
@@ -79,10 +79,10 @@ jobs:
         run: ./bindgen/bindgen-merge.sh
 
       - name: "Upload cross-platform FFI"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "ffi-x"
-          path: "./bindgen/x-ffi/cross-platform.json"
+          path: "./bindgen/ffi-x/cross-platform.json"
 
   bindgen-cs-job:
     name: "Bindgen C#"
@@ -91,12 +91,12 @@ jobs:
 
     steps:
       - name: "Clone Git repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: 'false'
 
       - name: "Download C code cross-platform FFI"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: "ffi-x"
           path: "./bindgen/ffi-x"
@@ -110,7 +110,7 @@ jobs:
         run: cd ./bindgen && ./bindgen-generate.sh
 
       - name: "Upload generated C# code"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: "bindgen-cs"
+          name: "cs"
           path: "./src/cs/production/SDL/Generated"
