@@ -72,7 +72,7 @@ jobs:
 
       - name: "Install c2ffi"
         shell: bash
-        run: dotnet add package bottlenoselabs.C2CS.Runtime --version 2024.4.14-rc --source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
+        run: dotnet tool install --global bottlenoselabs.c2ffi.tool
 
       - name: "Generate cross-platform FFI"
         shell: bash
@@ -103,7 +103,7 @@ jobs:
 
       - name: "Install C2CS"
         shell: bash
-        run: dotnet tool install --global bottlenoselabs.c2cs.tool
+        run: dotnet tool install -g bottlenoselabs.C2CS.Tool --version 2024.4.14-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
       - name: "Generate C# code"
         shell: bash
