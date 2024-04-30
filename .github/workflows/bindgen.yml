@@ -112,5 +112,5 @@ jobs:
       - name: "Upload generated C# code"
         uses: actions/upload-artifact@v4
         with:
-          name: "cs"
+          name: "bindgen-cs"
           path: "./src/cs/production/SDL/Generated"
