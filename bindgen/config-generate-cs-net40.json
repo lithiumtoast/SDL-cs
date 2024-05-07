@@ -15,5 +15,6 @@
     { "source": "Sint32", "target": "int" },
     { "source": "Sint64", "target": "long" }
   ],
-  "isEnabledGeneratingRuntimeCode": true
+  "isEnabledGeneratingRuntimeCode": true,
+  "isEnabledVerifyCSharpCodeCompiles": false
 }
