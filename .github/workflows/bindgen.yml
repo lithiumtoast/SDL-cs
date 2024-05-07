@@ -116,11 +116,11 @@ jobs:
       - name: "Upload generated C# code: .NET Core 8"
         uses: actions/upload-artifact@v4
         with:
-          name: "bindgen-cs-net80"
+          name: "cs-net80"
           path: "./src/cs/production/SDL/Generated/net80"
 
       - name: "Upload generated C# code: .NET Framework 4.0"
         uses: actions/upload-artifact@v4
         with:
-          name: "bindgen-cs-net40"
+          name: "cs-net40"
           path: "./src/cs/production/SDL/Generated/net40"
