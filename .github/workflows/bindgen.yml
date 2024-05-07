@@ -33,7 +33,7 @@ jobs:
 
       - name: "Read C code: extract FFI ${{ matrix.platform.rid }}"
         shell: bash
-        run: ./bindgen/bindgen-extract.sh
+        run: cd ./bindgen && c2ffi extract --config "./config-extract.json"
 
       - name: "Upload FFIs"
         uses: actions/upload-artifact@v4
@@ -76,7 +76,7 @@ jobs:
 
       - name: "Generate cross-platform FFI"
         shell: bash
-        run: ./bindgen/bindgen-merge.sh
+        run: cd ./bindgen && c2ffi merge --inputDirectoryPath "./ffi" --outputFilePath "./ffi-x/cross-platform.json"
 
       - name: "Upload cross-platform FFI"
         uses: actions/upload-artifact@v4
@@ -103,14 +103,24 @@ jobs:
 
       - name: "Install C2CS"
         shell: bash
-        run: dotnet tool install -g bottlenoselabs.C2CS.Tool --version 2024.4.30-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
+        run: dotnet tool install -g bottlenoselabs.C2CS.Tool --version 2024.5.7-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
-      - name: "Generate C# code"
+      - name: "Generate C# code: .NET Core 8"
         shell: bash
-        run: cd ./bindgen && ./bindgen-generate.sh
+        run: cd ./bindgen && c2cs generate --config "./config-generate-cs-net80.json"
 
-      - name: "Upload generated C# code"
+      - name: "Generate C# code: .NET Framework 4.0"
+        shell: bash
+        run: cd ./bindgen && c2cs generate --config "./config-generate-cs-net40.json"
+
+      - name: "Upload generated C# code: .NET Core 8"
         uses: actions/upload-artifact@v4
         with:
-          name: "bindgen-cs"
-          path: "./src/cs/production/SDL/Generated"
+          name: "bindgen-cs-net80"
+          path: "./src/cs/production/SDL/Generated/net80"
+
+      - name: "Upload generated C# code: .NET Framework 4.0"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "bindgen-cs-net40"
+          path: "./src/cs/production/SDL/Generated/net40"
