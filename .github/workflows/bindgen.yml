@@ -117,10 +117,31 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "cs-net80"
-          path: "./src/cs/production/SDL.Core/Generated"
+          path: "./src/cs/production/SDL.NetCore/Generated"
 
       - name: "Upload generated C# code: .NET Framework 4.0"
         uses: actions/upload-artifact@v4
         with:
           name: "cs-net40"
           path: "./src/cs/production/SDL.NetFramework/Generated"
+
+  build-cs-net80-job:
+    name: "Build C#: .NET 8"
+    needs: [bindgen-cs-job]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Clone Git repository"
+        uses: actions/checkout@v4
+        with:
+          submodules: 'false'
+
+      - name: "Download generated C# code"
+        uses: actions/download-artifact@v4
+        with:
+          name: "cs-net80"
+          path: "./src/cs/production/SDL.NetCore/Generated"
+
+      - name: "Build .NET project: .NET 8"
+        shell: bash
+        run: dotnet build ./src/cs/production/SDL.NetCore/SDL.NetCore.csproj --configuration Release
