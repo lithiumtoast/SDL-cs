@@ -103,7 +103,7 @@ jobs:
 
       - name: "Install C2CS"
         shell: bash
-        run: dotnet tool install -g bottlenoselabs.C2CS.Tool --version 2024.5.7-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
+        run: dotnet tool install -g bottlenoselabs.C2CS.Tool --version 2024.5.8-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
       - name: "Generate C# code: .NET Core 8"
         shell: bash
@@ -117,10 +117,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "cs-net80"
-          path: "./src/cs/production/SDL/Generated/net80"
+          path: "./src/cs/production/SDL.Core/Generated"
 
       - name: "Upload generated C# code: .NET Framework 4.0"
         uses: actions/upload-artifact@v4
         with:
           name: "cs-net40"
-          path: "./src/cs/production/SDL/Generated/net40"
+          path: "./src/cs/production/SDL.NetFramework/Generated"
