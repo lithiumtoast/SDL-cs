@@ -126,7 +126,7 @@ jobs:
           path: "./src/cs/production/SDL.NetFramework/Generated"
 
   build-cs-net80-job:
-    name: "Build C#: .NET 8"
+    name: "Build C#: .NET 8.x"
     needs: [bindgen-cs-job]
     runs-on: ubuntu-latest
 
@@ -142,6 +142,28 @@ jobs:
           name: "cs-net80"
           path: "./src/cs/production/SDL.NetCore/Generated"
 
-      - name: "Build .NET project: .NET 8"
+      - name: "Build .NET project: .NET 8.x"
         shell: bash
         run: dotnet build ./src/cs/production/SDL.NetCore/SDL.NetCore.csproj --configuration Release
+
+
+  build-cs-net40-job:
+    name: "Build C#: .NET 4.0"
+    needs: [bindgen-cs-job]
+    runs-on: windows-latest
+
+    steps:
+      - name: "Clone Git repository"
+        uses: actions/checkout@v4
+        with:
+          submodules: 'false'
+
+      - name: "Download generated C# code"
+        uses: actions/download-artifact@v4
+        with:
+          name: "cs-net40"
+          path: "./src/cs/production/SDL.NetFramework/Generated"
+
+      - name: "Build .NET project: .NET 4.0"
+        shell: bash
+        run: dotnet build ./src/cs/production/SDL.NetFramework/SDL.NetFramework.csproj --configuration Release
