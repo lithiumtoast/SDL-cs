@@ -34,6 +34,8 @@
     "^SDLK_SCANCODE_MASK$",
     "COMMENT: SDL/include/SDL3/SDL_pixels.h",
     "^SDL_F?Colour$",
+    "COMMENT: SDL/include/SDL3/SDL_pen.h",
+    "^SDL_PEN_.*_MASKS$",
     "COMMENT: SDL/include/SDL3/SDL_stdinc.h",
     "^SDL_PRI[suxX]64$",
     "^SDL_PRI[suxX]32$",
@@ -57,6 +59,8 @@
   ],
   "ignoredFunctions": [
     "^_.*$",
+    "COMMMENT: SDL/include/SDL3/SDL_iostream.h",
+    "^SDL_IOprintf$",
     "COMMENT: SDL/include/SDL3/SDL_log.h",
     "^SDL_LogMessageV$",
     "COMMMENT: SDL/include/SDL3/SDL_stdinc.h",
