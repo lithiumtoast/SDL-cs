@@ -35,7 +35,7 @@
     "COMMENT: SDL/include/SDL3/SDL_pixels.h",
     "^SDL_F?Colour$",
     "COMMENT: SDL/include/SDL3/SDL_pen.h",
-    "^SDL_PEN_.*_MASK?S$",
+    "^SDL_PEN_.*_MASKS?$",
     "COMMENT: SDL/include/SDL3/SDL_stdinc.h",
     "^SDL_PRI[suxX]64$",
     "^SDL_PRI[suxX]32$",
