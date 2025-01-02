@@ -24,9 +24,9 @@ jobs:
           submodules: 'true'
 
       - name: "Setup .NET"
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '9.x'
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.x'
 
       - name: "Install c2ffi"
         shell: bash
