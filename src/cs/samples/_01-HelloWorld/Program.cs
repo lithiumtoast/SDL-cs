@@ -11,7 +11,7 @@ using static Interop.SDL;
 #pragma warning disable IDE0210
 [assembly: DisableRuntimeMarshalling]
 
-namespace bottlenoselabs.SDL.Samples;
+namespace SDL.Samples;
 
 internal static unsafe class Program
 {
