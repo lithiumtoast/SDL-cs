@@ -106,9 +106,9 @@ jobs:
           submodules: 'false'
 
       - name: "Setup .NET"
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '9.x'
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.x'
 
       - name: "Download C code cross-platform FFI"
         uses: actions/download-artifact@v4
@@ -142,9 +142,9 @@ jobs:
           submodules: 'false'
 
       - name: "Setup .NET"
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '9.x'
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.x'
 
       - name: "Download generated C# code"
         uses: actions/download-artifact@v4
