@@ -149,7 +149,7 @@ jobs:
       - name: "Download generated C# code"
         uses: actions/download-artifact@v4
         with:
-          name: "cs-net80"
+          name: "cs"
           path: "./src/cs/production/Interop.SDL/Generated"
 
       - name: "Build .NET project"
