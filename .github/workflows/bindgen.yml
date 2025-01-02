@@ -33,7 +33,7 @@ jobs:
 
       - name: "Read C code: extract FFI ${{ matrix.platform.rid }}"
         shell: bash
-        run: cd ./bindgen && c2ffi extract --config "./config-extract.json"
+        run: cd ./bindgen && ./extract.sh
 
       - name: "Upload FFIs"
         uses: actions/upload-artifact@v4
@@ -76,7 +76,7 @@ jobs:
 
       - name: "Generate cross-platform FFI"
         shell: bash
-        run: cd ./bindgen && c2ffi merge --inputDirectoryPath "./ffi" --outputFilePath "./ffi-x/cross-platform.json"
+        run: cd ./bindgen && ./merge.sh
 
       - name: "Upload cross-platform FFI"
         uses: actions/upload-artifact@v4
@@ -105,28 +105,18 @@ jobs:
         shell: bash
         run: dotnet tool install -g bottlenoselabs.C2CS.Tool --version 2024.5.8-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
-      - name: "Generate C# code: .NET Core 8"
+      - name: "Generate C# code"
         shell: bash
-        run: cd ./bindgen && c2cs generate --config "./config-generate-cs-net80.json"
+        run: cd ./bindgen && ./generate.sh
 
-      - name: "Generate C# code: .NET Framework 4.0"
-        shell: bash
-        run: cd ./bindgen && c2cs generate --config "./config-generate-cs-net40.json"
-
-      - name: "Upload generated C# code: .NET Core 8"
+      - name: "Upload generated C# code"
         uses: actions/upload-artifact@v4
         with:
-          name: "cs-net80"
-          path: "./src/cs/production/SDL.NetCore/Generated"
+          name: "cs"
+          path: "./src/cs/production/SDL.Interop/Generated"
 
-      - name: "Upload generated C# code: .NET Framework 4.0"
-        uses: actions/upload-artifact@v4
-        with:
-          name: "cs-net40"
-          path: "./src/cs/production/SDL.NetFramework/Generated"
-
-  build-cs-net80-job:
-    name: "Build C#: .NET 8.x"
+  build-dotnet-job:
+    name: "Build .NET"
     needs: [bindgen-cs-job]
     runs-on: ubuntu-latest
 
@@ -140,30 +130,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: "cs-net80"
-          path: "./src/cs/production/SDL.NetCore/Generated"
+          path: "./src/cs/production/SDL.Interop/Generated"
 
-      - name: "Build .NET project: .NET 8.x"
+      - name: "Build .NET project"
         shell: bash
-        run: dotnet build ./src/cs/production/SDL.NetCore/SDL.NetCore.csproj --configuration Release
-
-
-  build-cs-net40-job:
-    name: "Build C#: .NET 4.0"
-    needs: [bindgen-cs-job]
-    runs-on: windows-latest
-
-    steps:
-      - name: "Clone Git repository"
-        uses: actions/checkout@v4
-        with:
-          submodules: 'false'
-
-      - name: "Download generated C# code"
-        uses: actions/download-artifact@v4
-        with:
-          name: "cs-net40"
-          path: "./src/cs/production/SDL.NetFramework/Generated"
-
-      - name: "Build .NET project: .NET 4.0"
-        shell: bash
-        run: dotnet build ./src/cs/production/SDL.NetFramework/SDL.NetFramework.csproj --configuration Release
+        run: dotnet build "./src/cs" --configuration Release

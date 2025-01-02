@@ -59,6 +59,8 @@
   ],
   "ignoredFunctions": [
     "^_.*$",
+    "COMMENT: SDL/include/SDL3/SDL_error.h",
+    "^SDL_SetErrorV$",
     "COMMMENT: SDL/include/SDL3/SDL_iostream.h",
     "^SDL_IOprintf$",
     "^SDL_IOvprintf$",

@@ -1,0 +1,32 @@
+<Project>
+
+  <!-- Custom variables -->
+  <PropertyGroup>
+    <GitRepositoryPath>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory),.gitignore))</GitRepositoryPath>
+  </PropertyGroup>
+
+  <!-- Use and change artifacts folder -->
+  <PropertyGroup>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$([System.IO.Path]::Combine($(GitRepositoryPath),artifacts))</ArtifactsPath>
+  </PropertyGroup>
+
+  <!-- Show generated files -->
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>false</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <!-- NuGet package references -->
+  <ItemGroup>
+    <PackageReference Include="bottlenoselabs.MSBuild.Extensions" Version="2024.9.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

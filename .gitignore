@@ -8,6 +8,7 @@
 # Generated files
 bin/
 obj/
+lib/
 /artifacts/
 bindgen/ffi/
 bindgen/ffi-x/

@@ -1,7 +1,8 @@
 {
-  "targetFrameworkMoniker": "net8.0",
+  "targetFrameworkMoniker": "net9.0",
   "inputFilePath": "./ffi-x/cross-platform.json",
-  "outputFileDirectory": "./../src/cs/production/SDL.NetCore/Generated",
+  "outputFileDirectory": "./../src/cs/production/Interop.SDL/Generated",
+  "namespaceName": "Interop",
   "className": "SDL",
   "libraryName": "SDL3",
   "mappedNames": [
