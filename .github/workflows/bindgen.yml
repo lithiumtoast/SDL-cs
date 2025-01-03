@@ -30,7 +30,7 @@ jobs:
 
       - name: "Install c2ffi"
         shell: bash
-        run: dotnet tool install -g bottlenoselabs.c2ffi.Tool --version 2025.1.3-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
+        run: dotnet tool install -g bottlenoselabs.c2ffi.Tool --version 2025.1.3.1-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
       - name: "Read C code: Linux dependencies"
         if: runner.os == 'Linux'
@@ -82,7 +82,7 @@ jobs:
 
       - name: "Install c2ffi"
         shell: bash
-        run: dotnet tool install -g bottlenoselabs.c2ffi.Tool --version 2025.1.3-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
+        run: dotnet tool install -g bottlenoselabs.c2ffi.Tool --version 2025.1.3.1-rc --add-source https://www.myget.org/F/bottlenoselabs/api/v3/index.json
 
       - name: "Generate cross-platform FFI"
         shell: bash
