@@ -4,7 +4,7 @@
     "../ext/SDL/include"
   ],
   "defines": {
-    "DECLSPEC": "__attribute__ ((visibility(\"default\")))",
+    "SDL_DECLSPEC": "__attribute__ ((visibility(\"default\")))",
     "SDL_DISABLE_ANALYZE_MACROS": "1",
     "SDL_DISABLE_ALLOCA": "1"
   },
